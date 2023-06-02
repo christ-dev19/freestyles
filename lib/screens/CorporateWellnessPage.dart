@@ -284,7 +284,7 @@ class TimeLineWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Meeting with front-end developers",
+                    "${item['title']}",
                     style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: item['colorText'],
@@ -293,7 +293,7 @@ class TimeLineWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      "Flose Real Estate Project",
+                      "${item['subTitle']}",
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: (item['colorText'] as Color).withOpacity(.8),
@@ -355,6 +355,35 @@ class TimeLineWidget extends StatelessWidget {
   }
 }
 
+class MyPainter extends CustomPainter {
+  final Color color;
+
+  MyPainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final h = size.height;
+    final w = size.width;
+    final radius =  w / 2;
+    Paint paint = Paint()
+      ..color = color
+      ..strokeWidth = 5.0
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    Offset center = Offset(w / 2,  h / 2);
+    Rect rect = Rect.fromCircle(center: center, radius: radius);
+    canvas.drawArc(rect, 1, 4, false, paint);
+    // canvas.drawCircle(center, w / 2, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return true;
+  }
+}
+
 class CardWidget extends StatelessWidget {
   final int index;
 
@@ -391,27 +420,22 @@ class CardWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Container(
-              width: _size.width / 5.5,
-              height: _size.width / 5.5,
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(5),
-              decoration: ShapeDecoration(
-                shape: CircleBorder(
-                  side: BorderSide(
-                    color: item["textColor"],
-                    width: 5,
-                  ),
+            CustomPaint(
+              painter: MyPainter(color: item["textColor"]),
+              child: Container(
+                width: _size.width / 5.5,
+                height: _size.width / 5.5,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(5),
+                child: Text(
+                  "${item['progress']}",
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: item["textColor"],
+                      fontSize: _size.aspectRatio * 35),
                 ),
-              ),
-              child: Text(
-                "${item['progress']}",
-                textAlign: TextAlign.center,
-                maxLines: 1,
-                style: TextStyle(
-                    fontWeight: FontWeight.w900,
-                    color: item["textColor"],
-                    fontSize: _size.aspectRatio * 35),
               ),
             ),
             const Expanded(child: SizedBox()),
