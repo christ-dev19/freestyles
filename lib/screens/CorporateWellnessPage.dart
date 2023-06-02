@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CorporateWellnessPage extends StatefulWidget {
   const CorporateWellnessPage({Key? key}) : super(key: key);
@@ -34,288 +35,322 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
       "progress": "53%"
     },
   ];
-  List<dynamic> timeLines = List.generate(4, (index) => index);
+  List<Map<String, dynamic>> timeLines = [
+    {
+      "title": "Meeting with front-end developers",
+      "subTitle": "Flose Real Estate Profect",
+      "time": "10:00 AM",
+      "crenaux": "09-50 AM - 10-50 AM",
+      "color": const Color.fromRGBO(254, 226, 231, 1),
+      "colorText": const Color.fromRGBO(144, 81, 94, 1),
+      "usersImage": [
+        "assets/images/unsplash02.jpg",
+        "assets/images/unsplash01.jpg",
+        "assets/images/unsplash03.jpg",
+      ]
+    },
+    {
+      "title": "Internal marketing session",
+      "subTitle": "Marketing Department",
+      "time": "11:00 AM",
+      "crenaux": "11-00 AM - 12-50 AM",
+      "color": const Color.fromRGBO(231, 229, 241, 1),
+      "colorText": const Color.fromRGBO(83, 80, 116, 1),
+      "usersImage": [
+        "assets/images/unsplash03.jpg",
+        "assets/images/unsplash01.jpg",
+        "assets/images/unsplash02.jpg",
+      ]
+    },
+    {
+      "title": "Internal marketing session",
+      "subTitle": "Marketing Department",
+      "time": "11:00 AM",
+      "crenaux": "11-00 AM - 12-50 AM",
+      "color": const Color.fromRGBO(237, 192, 187, 1),
+      "colorText": const Color.fromRGBO(171, 122, 114, 1.0),
+      "usersImage": [
+        "assets/images/unsplash02.jpg",
+        "assets/images/unsplash01.jpg",
+        "assets/images/unsplash03.jpg",
+      ]
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      backgroundColor: scaffoldColor,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned.fill(
-              right: 0,
-              left: 0,
-              top: 0,
-              child: Container(
-                width: _size.width,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(30),
-                      bottomRight: Radius.circular(30)),
-                ),
-                child: Column(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 10),
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Hello, Villie!",
-                            style: TextStyle(
-                                fontSize: _size.aspectRatio * 70,
-                                fontWeight: FontWeight.w900,
-                                color: bottomSheetColor),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(30),
-                            decoration: BoxDecoration(
-                              color: const Color.fromRGBO(243, 245, 247, 1),
-                              borderRadius: BorderRadius.all(
-                                  Radius.circular(_size.width)),
-                              border: Border.all(
-                                color: const Color.fromRGBO(210, 208, 219, 1),
-                                width: 2,
-                                style: BorderStyle.solid,
-                              ),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/anonimous-user.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: _size.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        "Your progress",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: bottomSheetColor,
-                          fontSize: _size.aspectRatio * 50,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      width: _size.width,
-                      height: _size.height * .33,
-                      margin: const EdgeInsets.symmetric(vertical: 20),
-                      child: PageView.builder(
-                        controller: PageController(
-                            viewportFraction: .45, initialPage: 0),
-                        itemCount: yourProgress.length,
-                        padEnds: false,
-                        itemBuilder: (context, index) => CardWidget(
-                          item: yourProgress[index],
-                          index: index,
-                        ),
-                        scrollDirection: Axis.horizontal,
-                      ),
-                    ),
-                    Container(
-                      width: _size.width,
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              "Wednesday, March 7",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: scaffoldColor,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: scaffoldColor,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              Positioned.fill(
+                right: 0,
+                left: 0,
+                top: 0,
+                bottom: kBottomNavigationBarHeight + 10,
+                child: Container(
+                  width: _size.width,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30),
+                        bottomRight: Radius.circular(30)),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Hello, Villie!",
                               style: TextStyle(
-                                color: bottomSheetColor,
-                                fontSize: _size.aspectRatio * 50,
-                                fontWeight: FontWeight.w700,
+                                  fontSize: _size.aspectRatio * 70,
+                                  fontWeight: FontWeight.w900,
+                                  color: bottomSheetColor),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.all(30),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(243, 245, 247, 1),
+                                borderRadius: BorderRadius.all(
+                                    Radius.circular(_size.width)),
+                                border: Border.all(
+                                  color: const Color.fromRGBO(210, 208, 219, 1),
+                                  width: 2,
+                                  style: BorderStyle.solid,
+                                ),
+                                image: const DecorationImage(
+                                  image: AssetImage(
+                                      "assets/images/unsplash02.jpg"),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: _size.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          "Your progress",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: bottomSheetColor,
+                            fontSize: _size.aspectRatio * 50,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: _size.width,
+                        height: _size.height * .33,
+                        margin: const EdgeInsets.symmetric(vertical: 20),
+                        child: PageView.builder(
+                          controller: PageController(
+                              viewportFraction: .45, initialPage: 0),
+                          itemCount: yourProgress.length,
+                          padEnds: false,
+                          itemBuilder: (context, index) => CardWidget(
+                            item: yourProgress[index],
+                            index: index,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                        ),
+                      ),
+                      Container(
+                        width: _size.width,
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        margin: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "Wednesday, March 7",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  color: bottomSheetColor,
+                                  fontSize: _size.aspectRatio * 50,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            margin: const EdgeInsets.only(left: 10),
-                            decoration: ShapeDecoration(
-                              color: const Color.fromRGBO(225, 224, 231, 1),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                            ),
-                            alignment: Alignment.center,
-                            child: Icon(
-                              Icons.calendar_month,
-                              color: bottomSheetColor,
-                            ),
-                          )
-                        ],
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.only(left: 10),
+                              decoration: ShapeDecoration(
+                                color: const Color.fromRGBO(225, 224, 231, 1),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              alignment: Alignment.center,
+                              child: Icon(
+                                Icons.calendar_month,
+                                color: bottomSheetColor,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                        child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ...timeLines
-                              .map(
-                                (e) => Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 20),
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "10:00 AM",
-                                        style: TextStyle(
-                                          color: bottomSheetColor,
-                                          fontSize: _size.aspectRatio * 30,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                      Flexible(
-                                        child: Container(
-                                          width: _size.width,
-                                          padding: const EdgeInsets.all(10.0),
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          decoration: ShapeDecoration(
-                                            color: const Color.fromRGBO(
-                                              254,
-                                              226,
-                                              231,
-                                              1,
-                                            ),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Meeting with front-end developers",
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w900,
-                                                    fontSize:
-                                                        _size.aspectRatio * 25),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 8.0),
-                                                child: Text(
-                                                  "Flose Real Estate Project",
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.w700,
-                                                    fontSize:
-                                                        _size.aspectRatio * 22,
-                                                  ),
-                                                ),
-                                              ),
-                                                Row(
-                                                children: [
-                                                  CircleAvatar(
-                                                    radius: 20,
-                                                    backgroundImage: AssetImage(
-                                                      "assets/images/anonimous-user.png",
-                                                    ),
-                                                  ),
-                                                  Transform.translate(
-                                                    offset: Offset(-10, 0),
-                                                    child: CircleAvatar(
-                                                      radius: 20,
-                                                      backgroundImage: AssetImage(
-                                                        "assets/images/anonimous-user.png",
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                      Expanded(
+                          child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ...timeLines
+                                .map(
+                                  (e) => TimeLineWidget(
+                                    bottomSheetColor: bottomSheetColor,
+                                    item: e,
                                   ),
-                                ),
-                              )
-                              .toList()
-                        ],
-                      ),
-                    ))
-                  ],
+                                )
+                                .toList()
+                          ],
+                        ),
+                      ))
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 10,
-              right: 10,
-              left: 10,
-              child: BottomNavigationSheet(bottomSheetColor: bottomSheetColor),
-            )
-          ],
+              Positioned(
+                bottom: 8,
+                right: 10,
+                left: 10,
+                child:
+                    BottomNavigationSheet(bottomSheetColor: bottomSheetColor),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
+}
 
-  Widget _timeLineItem(e, Size size) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "10:00 AM",
-          style: TextStyle(
-            color: bottomSheetColor,
-            fontSize: size.aspectRatio * 30,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(10.0),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: ShapeDecoration(
-            color: const Color.fromRGBO(254, 226, 231, 1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+class TimeLineWidget extends StatelessWidget {
+  const TimeLineWidget({
+    super.key,
+    required this.bottomSheetColor,
+    required this.item,
+  });
+
+  final Color bottomSheetColor;
+  final Map<String, dynamic> item;
+
+  @override
+  Widget build(BuildContext context) {
+    Size _size = MediaQuery.of(context).size;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.only(top: 10, bottom: 10),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "${item['time']}",
+            style: TextStyle(
+              color: bottomSheetColor,
+              fontSize: _size.aspectRatio * 30,
+              fontWeight: FontWeight.w700,
             ),
           ),
-          child: const Column(
-            children: [
-              Text("Meeting with front-end developers"),
-              Text("Flose Real Estate Project"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+          Flexible(
+            child: Container(
+              width: _size.width,
+              padding: const EdgeInsets.all(10.0),
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              decoration: BoxDecoration(
+                color: item['color'],
+                borderRadius: BorderRadius.circular(15),
+                shape: BoxShape.rectangle,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CircleAvatar(radius: 20),
-                  CircleAvatar(radius: 20),
-                  CircleAvatar(radius: 20),
-                  CircleAvatar(radius: 20),
-                  Padding(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text("9:50 AM - 10:50 AM"),
+                  Text(
+                    "Meeting with front-end developers",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w900,
+                        color: item['colorText'],
+                        fontSize: _size.aspectRatio * 25),
                   ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Text(
+                      "Flose Real Estate Project",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: (item['colorText'] as Color).withOpacity(.8),
+                        fontSize: _size.aspectRatio * 22,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        constraints: BoxConstraints(
+                            minHeight: 40, maxWidth: _size.width / 3),
+                        height: 1,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            ...(item['usersImage'] as List<String>)
+                                .asMap()
+                                .entries
+                                .map(
+                                  (el) => Positioned(
+                                    left: (20 * el.key).toDouble(),
+                                    child: CircleAvatar(
+                                      radius: 15,
+                                      backgroundColor:
+                                          (item['colorText'] as Color),
+                                      backgroundImage: AssetImage(
+                                        el.value,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                                .toList(),
+                          ],
+                        ),
+                      ),
+                      Flexible(
+                          child: Text(
+                        '${item['crenaux']}',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: (item['colorText'] as Color).withOpacity(.8),
+                          fontSize: _size.aspectRatio * 20,
+                        ),
+                      ))
+                    ],
+                  )
                 ],
-              )
-            ],
+              ),
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }
