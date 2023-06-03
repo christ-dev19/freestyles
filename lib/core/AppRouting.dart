@@ -7,7 +7,7 @@ import '../screens/CorporateWellnessPage.dart';
 import '../screens/CorporateWellnessWithModalPage.dart';
 import '../screens/DragableCustom.dart';
 import '../screens/MyHomePage.dart';
-import '../screens/Register.dart';
+import '../screens/RegisterPage.dart';
 
 class AppRouting {
   static const home = "home";

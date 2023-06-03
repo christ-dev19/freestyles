@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/material.dart';
 import 'package:freestyles/core/AppRouting.dart';
 
@@ -130,34 +132,39 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
-                      Card(
-                        elevation: 10,
-                        shape: ShapeBorder.lerp(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, AppRouting.home);
+                        },
+                        child: Card(
+                          elevation: 10,
+                          shape: ShapeBorder.lerp(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(60),
+                            ),
+                            1,
                           ),
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(60),
+                          margin: const EdgeInsets.only(
+                            bottom: 25,
                           ),
-                          1,
-                        ),
-                        margin: const EdgeInsets.only(
-                          bottom: 25,
-                        ),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.indigo.shade900,
-                              borderRadius: BorderRadius.circular(60)),
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 20,
-                            horizontal: 65,
-                          ),
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.indigo.shade900,
+                                borderRadius: BorderRadius.circular(60)),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
+                              horizontal: 65,
+                            ),
+                            child: const Text(
+                              'Sign In',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w900,
+                              ),
                             ),
                           ),
                         ),
@@ -213,7 +220,7 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       width: 4 * _fullWidth / 5,
       height: .7 * _fullWidth / 5,
-      /*  decoration: InnerShadowDecoration(
+        decoration: InnerShadowDecoration(
         depth: 10,
         colors: [Colors.white54, Colors.black12],
         opacity: .4,
@@ -221,7 +228,6 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(50),
         ),
       ),
-       */
       margin: const EdgeInsets.only(bottom: 25),
       child: TextFormField(
         controller: fullNameController,
@@ -247,5 +253,87 @@ class _LoginPageState extends State<LoginPage> {
         obscureText: obscureTextPassword ?? true,
       ),
     );
+  }
+}
+
+
+class InnerShadowDecoration extends Decoration {
+  final ShapeBorder shape;
+  final double depth;
+  final List<Color> colors;
+  final double opacity;
+
+  InnerShadowDecoration({
+    required this.shape,
+    required this.depth,
+    this.colors = const [Colors.black87, Colors.white],
+    this.opacity = 1.0,
+  }) : assert(colors.length == 2);
+
+  @override
+  EdgeInsetsGeometry get padding => shape.dimensions;
+
+  @override
+  BoxPainter createBoxPainter([ui.VoidCallback? onChanged]) {
+    // TODO: implement createBoxPainter
+    return _ConcaveDecorationPainter(
+        this.shape, this.depth, this.colors, this.opacity);
+  }
+}
+
+class _ConcaveDecorationPainter extends BoxPainter {
+  ShapeBorder shape;
+  double depth;
+  List<Color> colors;
+  double opacity;
+
+  _ConcaveDecorationPainter(this.shape, this.depth, this.colors, this.opacity) {
+    if (depth > 0) {
+      colors = [
+        colors[1],
+        colors[0],
+      ];
+    } else {
+      depth = -depth;
+    }
+    colors = [
+      colors[0].withOpacity(opacity),
+      colors[1].withOpacity(opacity),
+    ];
+  }
+
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    final shapePath = shape.getOuterPath(offset & configuration.size!);
+    final rect = shapePath.getBounds();
+
+    final delta = 16 / rect.longestSide;
+    final stops = [0.5 - delta, 0.5 + delta];
+
+    final path = Path()
+      ..fillType = PathFillType.evenOdd
+      ..addRect(rect.inflate(depth * 2))
+      ..addPath(shapePath, Offset.zero);
+    canvas.save();
+    canvas.clipPath(shapePath);
+
+    final paint = Paint()
+      ..maskFilter = MaskFilter.blur(BlurStyle.normal, depth);
+    final clipSize = rect.size.aspectRatio > 1
+        ? Size(rect.width, rect.height / 2)
+        : Size(rect.width / 2, rect.height);
+    for (final alignment in [Alignment.topLeft, Alignment.bottomRight]) {
+      final shaderRect =
+          alignment.inscribe(Size.square(rect.longestSide), rect);
+      paint
+        ..shader = ui.Gradient.linear(
+            shaderRect.topLeft, shaderRect.bottomRight, colors, stops);
+
+      canvas.save();
+      canvas.clipRect(alignment.inscribe(clipSize, rect));
+      canvas.drawPath(path, paint);
+      canvas.restore();
+    }
+    canvas.restore();
   }
 }
