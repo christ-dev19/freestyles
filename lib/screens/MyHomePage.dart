@@ -94,6 +94,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       label: "Corporate Wellness",
                       onTap: () => Navigator.pushNamed(context, AppRouting.corporateWellness),
                     ),
+                    _buildItemDrawer(
+                      icon: CupertinoIcons.square_grid_2x2,
+                      label: "Dragable Custom",
+                      onTap: () => Navigator.pushNamed(context, AppRouting.dragableCustom),
+                    ),
                   ],
                 ),
               ),

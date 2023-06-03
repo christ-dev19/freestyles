@@ -1,17 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:freestyles/core/AppRouting.dart';
 import 'package:vector_math/vector_math.dart' as vm;
 
-class CorporateWellnessPage extends StatefulWidget {
-  const CorporateWellnessPage({Key? key}) : super(key: key);
+class CorporateWellnessWithModalPage extends StatefulWidget {
+  const CorporateWellnessWithModalPage({Key? key}) : super(key: key);
 
   @override
-  State<CorporateWellnessPage> createState() => _CorporateWellnessPageState();
+  State<CorporateWellnessWithModalPage> createState() =>
+      _CorporateWellnessWithModalPageState();
 }
 
-class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
+class _CorporateWellnessWithModalPageState
+    extends State<CorporateWellnessWithModalPage> {
   Color scaffoldColor = const Color.fromRGBO(252, 251, 254, 1);
   Color bottomSheetColor = const Color.fromRGBO(45, 43, 78, 1);
   List<Map<String, dynamic>> yourProgress = [
@@ -86,9 +87,10 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
 
+    const overlayColorModal = const Color.fromRGBO(157, 156, 163, .3);
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: scaffoldColor,
+      value: const SystemUiOverlayStyle(
+        statusBarColor: overlayColorModal,
         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
@@ -105,8 +107,9 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                   width: _size.width,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30)),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30),
+                    ),
                   ),
                   child: Column(
                     children: [
@@ -129,7 +132,8 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                               decoration: BoxDecoration(
                                 color: const Color.fromRGBO(243, 245, 247, 1),
                                 borderRadius: BorderRadius.all(
-                                    Radius.circular(_size.width)),
+                                  Radius.circular(_size.width),
+                                ),
                                 border: Border.all(
                                   color: const Color.fromRGBO(210, 208, 219, 1),
                                   width: 2,
@@ -164,7 +168,9 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                         margin: const EdgeInsets.symmetric(vertical: 20),
                         child: PageView.builder(
                           controller: PageController(
-                              viewportFraction: .45, initialPage: 0),
+                            viewportFraction: .45,
+                            initialPage: 0,
+                          ),
                           itemCount: yourProgress.length,
                           padEnds: false,
                           itemBuilder: (context, index) => CardWidget(
@@ -201,7 +207,8 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                               decoration: ShapeDecoration(
                                 color: const Color.fromRGBO(225, 224, 231, 1),
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                               ),
                               alignment: Alignment.center,
                               child: Icon(
@@ -213,22 +220,32 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                         ),
                       ),
                       Expanded(
-                          child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ...timeLines
-                                .map(
-                                  (e) => TimeLineWidget(
-                                    bottomSheetColor: bottomSheetColor,
-                                    item: e,
-                                  ),
-                                )
-                                .toList()
-                          ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              ...timeLines
+                                  .map(
+                                    (e) => TimeLineWidget(
+                                      bottomSheetColor: bottomSheetColor,
+                                      item: e,
+                                    ),
+                                  )
+                                  .toList()
+                            ],
+                          ),
                         ),
-                      ))
+                      )
                     ],
                   ),
+                ),
+              ),
+              Positioned.fill(
+                top: 0,
+                right: 0,
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: overlayColorModal,
                 ),
               ),
               Positioned(
@@ -237,6 +254,141 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                 left: 10,
                 child: BottomNavigationSheet(
                   bottomSheetColor: bottomSheetColor,
+                ),
+              ),
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.fastEaseInToSlowEaseOut,
+                right: 20,
+                bottom: 30,
+                left: 20,
+                top: _size.height / 3.5,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          padding: const EdgeInsets.all(7),
+                          decoration: ShapeDecoration(
+                            color: overlayColorModal,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          child: InkWell(
+                            onTap: () {},
+                            child: Icon(
+                              Icons.close,
+                              color: bottomSheetColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: AssetImage("assets/images/i01.png"),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        margin: const EdgeInsets.symmetric(vertical: 20),
+                        child: Text(
+                          'Oh, you need \nsome rest !',
+                          maxLines: 2,
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: bottomSheetColor,
+                            fontWeight: FontWeight.w900,
+                            fontSize: _size.aspectRatio * 50,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 25),
+                        child: Text(
+                          "Coffee machine can make a cappuccino especially for vou in 5 minutes Do vou want some coffee ?",
+                          textAlign: TextAlign.center,
+                          maxLines: 4,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: bottomSheetColor.withOpacity(.5),
+                            fontWeight: FontWeight.w700,
+                            fontSize: _size.aspectRatio * 30,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Flexible(
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.rectangle,
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                  color: bottomSheetColor,
+                                  width: 3,
+                                  style: BorderStyle.solid,
+                                ),
+                              ),
+                              child: Text('No, latter',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: bottomSheetColor,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: _size.aspectRatio * 25,
+                                  )),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: const Color.fromRGBO(255, 212, 101, 1),
+                                borderRadius: BorderRadius.circular(15),
+                                shape: BoxShape.rectangle,
+                                boxShadow: const [
+                                  BoxShadow(
+                                    blurRadius: 10,
+                                    spreadRadius: 4,
+                                    offset: Offset(5, 5),
+                                    color: Color.fromRGBO(255, 212, 101, .3),
+                                  )
+                                ],
+                              ),
+                              child: Text(
+                                'Yes, thanks!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: const Color.fromRGBO(169, 128, 42, 1),
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: _size.aspectRatio * 25,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -481,9 +633,11 @@ class BottomNavigationSheet extends StatelessWidget {
   const BottomNavigationSheet({
     super.key,
     required this.bottomSheetColor,
+    this.onPressedIcon,
   });
 
   final Color bottomSheetColor;
+  final VoidCallback? onPressedIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -497,65 +651,38 @@ class BottomNavigationSheet extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
-            child: const Icon(
+          IconButton(
+            onPressed: onPressedIcon,
+            icon: const Icon(
               CupertinoIcons.square_grid_2x2,
               color: Colors.white,
               size: 25,
               fill: 1,
             ),
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
-            child: const Icon(
-              CupertinoIcons.app,
-              color: Colors.white24,
-              size: 25,
-              fill: 1,
-            ),
+          const Icon(
+            CupertinoIcons.app,
+            color: Colors.white24,
+            size: 25,
+            fill: 1,
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
-            child: const Icon(
-              CupertinoIcons.calendar,
-              color: Colors.white24,
-              size: 25,
-              fill: 1,
-            ),
+          const Icon(
+            CupertinoIcons.calendar,
+            color: Colors.white24,
+            size: 25,
+            fill: 1,
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
-            child: const Icon(
-              CupertinoIcons.chat_bubble,
-              color: Colors.white24,
-              size: 25,
-              fill: 1,
-            ),
+          const Icon(
+            CupertinoIcons.chat_bubble,
+            color: Colors.white24,
+            size: 25,
+            fill: 1,
           ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
-            child: const Icon(
-              CupertinoIcons.settings,
-              color: Colors.white24,
-              size: 25,
-              fill: 1,
-            ),
+          const Icon(
+            CupertinoIcons.settings,
+            color: Colors.white24,
+            size: 25,
+            fill: 1,
           ),
         ],
       ),

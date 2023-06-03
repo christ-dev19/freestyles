@@ -16,8 +16,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouting.corporateWellness,
+      initialRoute: AppRouting.home,
       onGenerateRoute: (settings) => AppRouting.onGenerateRoute(settings),
+      onGenerateTitle: (context) {
+        return "context";
+      },
       theme: ThemeData(
         fontFamily: "Poppins",
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
