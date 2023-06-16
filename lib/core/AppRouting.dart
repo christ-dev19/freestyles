@@ -6,7 +6,7 @@ import 'package:freestyles/screens/LoginPage.dart';
 import '../screens/CorporateWellnessPage.dart';
 import '../screens/CorporateWellnessWithModalPage.dart';
 import '../screens/DragableCustom.dart';
-import '../screens/MyHomePage.dart';
+ import '../screens/MyHomePage.dart';
 import '../screens/RegisterPage.dart';
 
 class AppRouting {
@@ -16,7 +16,7 @@ class AppRouting {
   static const corporateWellness = "corporateWellness";
   static const corporateWellnessWithModalPage =
       "CorporateWellnessWithModalPage";
-  static const dragableCustom = "DragableCustom";
+  static const draggableCustom = "DragableCustom";
 
   static onGenerateRoute(RouteSettings settings) {
     developer.log('${settings.name}', name: "settings");
@@ -27,9 +27,9 @@ class AppRouting {
           return const MyHomePage(title: 'Flutter freestyles pages');
         });
 
-      case dragableCustom:
+      case draggableCustom:
         return MaterialPageRoute(builder: (_) {
-          return const DragableCustom(title: "Dragable Custom");
+          return const DraggableCustom(title: "Draggable Custom");
         });
 
       case login:

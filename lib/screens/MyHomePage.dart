@@ -12,7 +12,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<ScaffoldState> _drawerKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _drawerKey =   GlobalKey<ScaffoldState>();
 
 
   @override
@@ -29,12 +29,12 @@ class _MyHomePageState extends State<MyHomePage> {
           style: const TextStyle(color: Colors.white),
         ),
         leading: IconButton(
-          icon: Icon(
+          icon: const Icon(
             Icons.list_outlined,
             color: Colors.white,
           ),
           onPressed: () {
-            _drawerKey..currentState!.openDrawer();
+            _drawerKey.currentState!.openDrawer();
           },
         ),
       ),
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     _buildItemDrawer(
                       icon: CupertinoIcons.square_grid_2x2,
                       label: "Dragable Custom",
-                      onTap: () => Navigator.pushNamed(context, AppRouting.dragableCustom),
+                      onTap: () => Navigator.pushNamed(context, AppRouting.draggableCustom),
                     ),
                   ],
                 ),
@@ -106,11 +106,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
+            Text(
               'You have pushed the button this many times:',
             ),
           ],

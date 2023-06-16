@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'core/AppRouting.dart';
 
-// https://dribbble.com/shots/20245727-Corporate-Wellness-Mobile-App-design-iOS-Android-ux-ui-designer
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouting.home,
+      initialRoute: AppRouting.login,
       onGenerateRoute: (settings) => AppRouting.onGenerateRoute(settings),
       onGenerateTitle: (context) {
         return "context";

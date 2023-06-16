@@ -6,11 +6,13 @@ import 'package:flutter/services.dart';
 import '../../core/AppRouting.dart';
 
 class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
   bool obscureTextPassword = true;
 
   @override
@@ -21,8 +23,8 @@ class _RegisterPageState extends State<RegisterPage> {
     double p = 4 * fullWidth / 4.5;
     double dimenssionCircleTop = p + (p / 6.5);
 
-    Color _colorPrimary = Colors.indigo.shade900;
-    Color _colorSecondary = Colors.lightBlueAccent.withOpacity(.1);
+    Color colorPrimary = Colors.indigo.shade900;
+    Color colorSecondary = Colors.lightBlueAccent.withOpacity(.1);
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value:
@@ -32,7 +34,7 @@ class _RegisterPageState extends State<RegisterPage> {
           child: Container(
             height: fullHeight,
             width: fullWidth,
-            color: _colorSecondary,
+            color: colorSecondary,
             child: Stack(
               children: [
                 Positioned(
@@ -74,12 +76,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 AppRouting.login,
                               );
                             },
-                            child: Container(
+                            child: SizedBox(
                               height: 35,
                               width: 35,
                               child: Icon(
                                 Icons.arrow_back_ios_sharp,
-                                color: _colorPrimary,
+                                color: colorPrimary,
                                 size: 20,
                               ),
                             ),
@@ -98,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       style: TextStyle(
                                         fontSize: aspectRatio * 60,
                                         fontWeight: FontWeight.w800,
-                                        color: _colorPrimary,
+                                        color: colorPrimary,
                                       ),
                                     ),
                                     Text(
@@ -106,7 +108,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                       style: TextStyle(
                                         fontSize: aspectRatio * 60,
                                         fontWeight: FontWeight.w800,
-                                        color: _colorPrimary,
+                                        color: colorPrimary,
                                       ),
                                     ),
                                   ],
@@ -117,7 +119,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 style: TextStyle(
                                   fontSize: aspectRatio * 40,
                                   fontWeight: FontWeight.w500,
-                                  color: _colorPrimary,
+                                  color: colorPrimary,
                                 ),
                               ),
                             ],
@@ -204,14 +206,14 @@ class _RegisterPageState extends State<RegisterPage> {
                               Text(
                                 "Already have account ? ",
                                 style: TextStyle(
-                                  color: _colorPrimary,
+                                  color: colorPrimary,
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
                                 "Sign In",
                                 style: TextStyle(
-                                  color: _colorPrimary,
+                                  color: colorPrimary,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -236,15 +238,13 @@ class _RegisterPageState extends State<RegisterPage> {
     TextEditingController? fullNameController,
     bool obscureText = false,
     bool showSuffixIcon = false,
-    bool = false,
-    IconData suffixIcon = Icons.visibility_off,
     required String hintText,
   }) {
-    double _fullWidth = MediaQuery.of(context).size.width;
+    double fullWidth = MediaQuery.of(context).size.width;
 
     return Container(
-      width: 4 * _fullWidth / 5,
-      height: .7 * _fullWidth / 5,
+      width: 4 * fullWidth / 5,
+      height: .7 * fullWidth / 5,
       decoration: InnerShadowDecoration(
         depth: 10,
         colors: const [Colors.white54, Colors.black12],
@@ -274,7 +274,7 @@ class InnerShadowDecoration extends Decoration {
   final List<Color> colors;
   final double opacity;
 
-  InnerShadowDecoration({
+  const InnerShadowDecoration({
     required this.shape,
     required this.depth,
     this.colors = const [Colors.black87, Colors.white],
@@ -288,7 +288,7 @@ class InnerShadowDecoration extends Decoration {
   BoxPainter createBoxPainter([ui.VoidCallback? onChanged]) {
     // TODO: implement createBoxPainter
     return _ConcaveDecorationPainter(
-        this.shape, this.depth, this.colors, this.opacity);
+        shape, depth, colors, opacity);
   }
 }
 
@@ -332,7 +332,7 @@ class _ConcaveDecorationPainter extends BoxPainter {
       final shaderRect =
           alignment.inscribe(Size.square(rect.longestSide), rect);
       paint
-        ..shader = ui.Gradient.linear(
+        .shader = ui.Gradient.linear(
             shaderRect.topLeft, shaderRect.bottomRight, colors, stops);
 
       canvas.save();

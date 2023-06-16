@@ -20,25 +20,25 @@ class _CorporateWellnessWithModalPageState
       "backgroundColor": const Color.fromRGBO(245, 108, 97, 1),
       "textColor": const Color.fromRGBO(253, 196, 193, 1.0),
       "name": "Working Hours",
-      "subname": "Working Hours exceeded by 3 hours",
+      "surname": "Working Hours exceeded by 3 hours",
       "progress": "19/40",
-      "degreProgress": 190.0,
+      "degreeProgress": 190.0,
     },
     {
       "backgroundColor": const Color.fromRGBO(255, 212, 101, 1),
       "textColor": const Color.fromRGBO(169, 128, 42, 1),
       "name": "Your Efficiency",
-      "subname": "Excellent result",
+      "surname": "Excellent result",
       "progress": "82%",
-      "degreProgress": 300.0,
+      "degreeProgress": 300.0,
     },
     {
       "backgroundColor": const Color.fromRGBO(255, 212, 101, 1),
       "textColor": const Color.fromRGBO(169, 128, 42, 1),
       "name": "Your Efficiency",
-      "subname": "Excellent result",
+      "surname": "Excellent result",
       "progress": "53%",
-      "degreProgress": 300.0,
+      "degreeProgress": 300.0,
     },
   ];
   List<Map<String, dynamic>> timeLines = [
@@ -85,9 +85,9 @@ class _CorporateWellnessWithModalPageState
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
-    const overlayColorModal = const Color.fromRGBO(157, 156, 163, .3);
+    const overlayColorModal = Color.fromRGBO(157, 156, 163, .3);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
         statusBarColor: overlayColorModal,
@@ -104,7 +104,7 @@ class _CorporateWellnessWithModalPageState
                 top: 0,
                 bottom: kBottomNavigationBarHeight + 10,
                 child: Container(
-                  width: _size.width,
+                  width: size.width,
                   decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(30),
@@ -121,9 +121,9 @@ class _CorporateWellnessWithModalPageState
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "Hello, Villie!",
+                              "Hello, Ville!",
                               style: TextStyle(
-                                  fontSize: _size.aspectRatio * 70,
+                                  fontSize: size.aspectRatio * 70,
                                   fontWeight: FontWeight.w900,
                                   color: bottomSheetColor),
                             ),
@@ -132,7 +132,7 @@ class _CorporateWellnessWithModalPageState
                               decoration: BoxDecoration(
                                 color: const Color.fromRGBO(243, 245, 247, 1),
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(_size.width),
+                                  Radius.circular(size.width),
                                 ),
                                 border: Border.all(
                                   color: const Color.fromRGBO(210, 208, 219, 1),
@@ -150,21 +150,21 @@ class _CorporateWellnessWithModalPageState
                         ),
                       ),
                       Container(
-                        width: _size.width,
+                        width: size.width,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
                           "Your progress",
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             color: bottomSheetColor,
-                            fontSize: _size.aspectRatio * 50,
+                            fontSize: size.aspectRatio * 50,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
                       Container(
-                        width: _size.width,
-                        height: _size.height * .33,
+                        width: size.width,
+                        height: size.height * .33,
                         margin: const EdgeInsets.symmetric(vertical: 20),
                         child: PageView.builder(
                           controller: PageController(
@@ -181,7 +181,7 @@ class _CorporateWellnessWithModalPageState
                         ),
                       ),
                       Container(
-                        width: _size.width,
+                        width: size.width,
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         margin: const EdgeInsets.only(bottom: 10),
                         child: Row(
@@ -196,7 +196,7 @@ class _CorporateWellnessWithModalPageState
                                 textAlign: TextAlign.start,
                                 style: TextStyle(
                                   color: bottomSheetColor,
-                                  fontSize: _size.aspectRatio * 50,
+                                  fontSize: size.aspectRatio * 50,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -262,7 +262,7 @@ class _CorporateWellnessWithModalPageState
                 right: 20,
                 bottom: 30,
                 left: 20,
-                top: _size.height / 3.5,
+                top: size.height / 3.5,
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: ShapeDecoration(
@@ -314,7 +314,7 @@ class _CorporateWellnessWithModalPageState
                           style: TextStyle(
                             color: bottomSheetColor,
                             fontWeight: FontWeight.w900,
-                            fontSize: _size.aspectRatio * 50,
+                            fontSize: size.aspectRatio * 50,
                           ),
                         ),
                       ),
@@ -328,7 +328,7 @@ class _CorporateWellnessWithModalPageState
                           style: TextStyle(
                             color: bottomSheetColor.withOpacity(.5),
                             fontWeight: FontWeight.w700,
-                            fontSize: _size.aspectRatio * 30,
+                            fontSize: size.aspectRatio * 30,
                           ),
                         ),
                       ),
@@ -353,7 +353,7 @@ class _CorporateWellnessWithModalPageState
                                   style: TextStyle(
                                     color: bottomSheetColor,
                                     fontWeight: FontWeight.w900,
-                                    fontSize: _size.aspectRatio * 25,
+                                    fontSize: size.aspectRatio * 25,
                                   )),
                             ),
                           ),
@@ -380,7 +380,7 @@ class _CorporateWellnessWithModalPageState
                                 style: TextStyle(
                                   color: const Color.fromRGBO(169, 128, 42, 1),
                                   fontWeight: FontWeight.w900,
-                                  fontSize: _size.aspectRatio * 25,
+                                  fontSize: size.aspectRatio * 25,
                                 ),
                               ),
                             ),
@@ -411,7 +411,7 @@ class TimeLineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -423,13 +423,13 @@ class TimeLineWidget extends StatelessWidget {
             "${item['time']}",
             style: TextStyle(
               color: bottomSheetColor,
-              fontSize: _size.aspectRatio * 30,
+              fontSize: size.aspectRatio * 30,
               fontWeight: FontWeight.w700,
             ),
           ),
           Flexible(
             child: Container(
-              width: _size.width,
+              width: size.width,
               padding: const EdgeInsets.all(10.0),
               margin: const EdgeInsets.symmetric(horizontal: 10),
               decoration: BoxDecoration(
@@ -446,7 +446,7 @@ class TimeLineWidget extends StatelessWidget {
                     style: TextStyle(
                         fontWeight: FontWeight.w900,
                         color: item['colorText'],
-                        fontSize: _size.aspectRatio * 25),
+                        fontSize: size.aspectRatio * 25),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -455,7 +455,7 @@ class TimeLineWidget extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
                         color: (item['colorText'] as Color).withOpacity(.8),
-                        fontSize: _size.aspectRatio * 22,
+                        fontSize: size.aspectRatio * 22,
                       ),
                     ),
                   ),
@@ -465,7 +465,7 @@ class TimeLineWidget extends StatelessWidget {
                     children: [
                       Container(
                         constraints: BoxConstraints(
-                            minHeight: 40, maxWidth: _size.width / 3),
+                            minHeight: 40, maxWidth: size.width / 3),
                         height: 1,
                         child: Stack(
                           alignment: Alignment.center,
@@ -498,7 +498,7 @@ class TimeLineWidget extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           color: (item['colorText'] as Color).withOpacity(.8),
-                          fontSize: _size.aspectRatio * 20,
+                          fontSize: size.aspectRatio * 20,
                         ),
                       ))
                     ],
@@ -515,9 +515,9 @@ class TimeLineWidget extends StatelessWidget {
 
 class MyPainter extends CustomPainter {
   final Color color;
-  final double degreProgress;
+  final double degreeProgress;
 
-  MyPainter({required this.color, required this.degreProgress});
+  MyPainter({required this.color, required this.degreeProgress});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -534,7 +534,7 @@ class MyPainter extends CustomPainter {
     Rect rect = Rect.fromCircle(center: center, radius: radius);
 
     canvas.drawArc(
-        rect, vm.radians(-90), vm.radians(degreProgress), false, paint);
+        rect, vm.radians(-90), vm.radians(degreeProgress), false, paint);
   }
 
   @override
@@ -554,7 +554,7 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Transform.translate(
       offset: Offset(0, index == 0 ? -4 : 13),
       child: Container(
@@ -583,10 +583,10 @@ class CardWidget extends StatelessWidget {
             CustomPaint(
               painter: MyPainter(
                   color: item["textColor"],
-                  degreProgress: item['degreProgress']),
+                  degreeProgress: item['degreeProgress']),
               child: Container(
-                width: _size.width / 5.5,
-                height: _size.width / 5.5,
+                width: size.width / 5.5,
+                height: size.width / 5.5,
                 alignment: Alignment.center,
                 padding: const EdgeInsets.all(5),
                 child: Text(
@@ -596,7 +596,7 @@ class CardWidget extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.w900,
                       color: item["textColor"],
-                      fontSize: _size.aspectRatio * 35),
+                      fontSize: size.aspectRatio * 35),
                 ),
               ),
             ),
@@ -609,17 +609,17 @@ class CardWidget extends StatelessWidget {
                 style: TextStyle(
                   color: item["textColor"],
                   fontWeight: FontWeight.w700,
-                  fontSize: _size.aspectRatio * 33,
+                  fontSize: size.aspectRatio * 33,
                 ),
               ),
             ),
             Text(
-              "${item['subname']}",
+              "${item['surname']}",
               maxLines: 2,
               style: TextStyle(
                 color: (item["textColor"] as Color).withOpacity(.8),
                 fontWeight: FontWeight.w600,
-                fontSize: _size.aspectRatio * 25,
+                fontSize: size.aspectRatio * 25,
               ),
             ),
           ],
@@ -641,12 +641,12 @@ class BottomNavigationSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size _size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
           color: bottomSheetColor,
-          borderRadius: BorderRadius.all(Radius.circular(_size.width))),
+          borderRadius: BorderRadius.all(Radius.circular(size.width))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
