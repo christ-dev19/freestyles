@@ -6,13 +6,15 @@ import 'package:freestyles/screens/LoginPage.dart';
 import '../screens/CorporateWellnessPage.dart';
 import '../screens/CorporateWellnessWithModalPage.dart';
 import '../screens/DragableCustom.dart';
- import '../screens/MyHomePage.dart';
+import '../screens/FoodOrderingApp/FoodOrderingApp1.dart';
+import '../screens/MyHomePage.dart';
 import '../screens/RegisterPage.dart';
 
 class AppRouting {
   static const home = "home";
   static const login = "login";
   static const register = "register";
+  static const foodOrderingApp1 = "FoodOrderingApp1";
   static const corporateWellness = "corporateWellness";
   static const corporateWellnessWithModalPage =
       "CorporateWellnessWithModalPage";
@@ -43,6 +45,11 @@ class AppRouting {
       case corporateWellness:
         return MaterialPageRoute(builder: (_) {
           return const CorporateWellnessPage();
+        });
+
+      case foodOrderingApp1:
+        return MaterialPageRoute(builder: (_) {
+          return const FoodOrderingApp1();
         });
       case corporateWellnessWithModalPage:
         return MaterialPageRoute(builder: (_) {

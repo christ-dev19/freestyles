@@ -12,8 +12,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final GlobalKey<ScaffoldState> _drawerKey =   GlobalKey<ScaffoldState>();
-
+  final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,27 +76,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     _buildItemDrawer(
                       icon: CupertinoIcons.square_grid_2x2,
                       label: "Connexion",
-                      onTap: () => Navigator.pushNamed(context, AppRouting.login),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRouting.login),
                     ),
                     _buildItemDrawer(
                       icon: CupertinoIcons.square_grid_2x2,
                       label: "Création de compte",
-                      onTap: () => Navigator.pushNamed(context, AppRouting.register),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRouting.register),
                     ),
                     _buildItemDrawer(
                       icon: CupertinoIcons.square_grid_2x2,
                       label: "Accueil",
-                      onTap: () => Navigator.pushNamed(context, AppRouting.home),
+                      onTap: () =>
+                          Navigator.pushNamed(context, AppRouting.home),
                     ),
                     _buildItemDrawer(
                       icon: CupertinoIcons.square_grid_2x2,
                       label: "Corporate Wellness",
-                      onTap: () => Navigator.pushNamed(context, AppRouting.corporateWellness),
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.corporateWellness),
                     ),
                     _buildItemDrawer(
                       icon: CupertinoIcons.square_grid_2x2,
                       label: "Dragable Custom",
-                      onTap: () => Navigator.pushNamed(context, AppRouting.draggableCustom),
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.draggableCustom),
+                    ),
+                    _buildItemDrawer(
+                      icon: CupertinoIcons.square_grid_2x2,
+                      label: "Food Ordering App1",
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.foodOrderingApp1),
                     ),
                   ],
                 ),
