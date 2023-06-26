@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:vector_math/vector_math.dart' as vm;
 
+import '../../core/AppRouting.dart';
+
 Color colorOrange = const Color.fromRGBO(233, 130, 34, 1);
 Color colorGrey = const Color.fromRGBO(216, 216, 236, 0.28627450980392155);
 
@@ -151,7 +153,7 @@ class _FoodOrderingApp1State extends State<FoodOrderingApp1> {
                                 size: 25,
                                 color: Colors.black12,
                               ),
-                                Flexible(
+                              Flexible(
                                 child: GestureDetector(
                                   onTap: () {
                                     debugPrint("GestureDetector");
@@ -406,113 +408,119 @@ class ItemWidget extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     NumberFormat numberFormat = NumberFormat.simpleCurrency(locale: 'en_US');
 
-    return Container(
-      margin: const EdgeInsets.only(right: 10, bottom: 10),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        image: DecorationImage(
-          image: AssetImage(data['image']),
-          fit: BoxFit.cover,
-          alignment: Alignment.centerLeft,
-          colorFilter: const ColorFilter.mode(Colors.black38, BlendMode.srcATop),
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, AppRouting.foodOrderingApp2);
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 10, bottom: 10),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          image: DecorationImage(
+            image: AssetImage(data['image']),
+            fit: BoxFit.cover,
+            alignment: Alignment.centerLeft,
+            colorFilter:
+                const ColorFilter.mode(Colors.black38, BlendMode.srcATop),
+          ),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(30),
+          ),
+          shape: BoxShape.rectangle,
         ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(30),
-        ),
-        shape: BoxShape.rectangle,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0).copyWith(top: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              textAlign: TextAlign.start,
-              style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 17,
-                  letterSpacing: 1.1),
-            ),
-            const Expanded(child: SizedBox()),
-            Container(
-              margin: const EdgeInsets.only(bottom: 10),
-              child: Text(
-                numberFormat.format(8.99),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0).copyWith(top: 30),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
                 textAlign: TextAlign.start,
                 style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 20,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 17,
+                    letterSpacing: 1.1),
+              ),
+              const Expanded(child: SizedBox()),
+              Container(
+                margin: const EdgeInsets.only(bottom: 10),
+                child: Text(
+                  numberFormat.format(8.99),
+                  textAlign: TextAlign.start,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 20),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(Icons.star, color: Colors.amber),
-                  SizedBox(width: 7),
-                  Text(
-                    '5.0 (3.8k)',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 5),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(15),
-                      decoration: ShapeDecoration(
+              Container(
+                margin: const EdgeInsets.only(bottom: 20),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.star, color: Colors.amber),
+                    SizedBox(width: 7),
+                    Text(
+                      '5.0 (3.8k)',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
                         color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(size.width),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(15),
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(size.width),
+                            ),
+                          ),
+                        ),
+                        child: const Text(
+                          'Add to Cart',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                      child: const Text(
-                        'Add to Cart',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  const CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Colors.white30,
-                    child: Icon(Icons.messenger_outline_rounded,
-                        color: Colors.white),
-                  ),
-                  const SizedBox(width: 10),
-                  const CircleAvatar(
-                    radius: 22,
-                    backgroundColor: Colors.white30,
-                    child: Icon(CupertinoIcons.heart, color: Colors.white),
-                  ),
-                ],
+                    const SizedBox(width: 10),
+                    const CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Colors.white30,
+                      child: Icon(Icons.messenger_outline_rounded,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(width: 10),
+                    const CircleAvatar(
+                      radius: 22,
+                      backgroundColor: Colors.white30,
+                      child: Icon(CupertinoIcons.heart, color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
