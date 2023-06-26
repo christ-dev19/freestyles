@@ -109,6 +109,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () => Navigator.pushNamed(
                           context, AppRouting.foodOrderingApp1),
                     ),
+                    _buildItemDrawer(
+                      icon: CupertinoIcons.square_grid_2x2,
+                      label: "Food Ordering App2",
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.foodOrderingApp2),
+                    ),
                   ],
                 ),
               ),
