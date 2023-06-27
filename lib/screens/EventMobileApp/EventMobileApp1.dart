@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:freestyles/core/AppRouting.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/constants.dart';
@@ -301,117 +302,122 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
     );
   }
 
-  Container _buildCardEvent(Size size, item) {
-    return Container(
-      width: size.width,
-      height: size.height / 3.2,
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        image: DecorationImage(
-            image: AssetImage(item['cover']),
-            fit: BoxFit.cover,
-            colorFilter:
-            const ColorFilter.mode(Colors.black45, BlendMode.srcATop)),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            top: 10,
-            right: 10,
-            child: Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey.shade700.withOpacity(.8),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    DateFormat.d().format(item['date']),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontFamily: YsabeauInfant,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  Text(
-                    DateFormat.MMM().format(item['date']),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade700.withOpacity(.8),
-                borderRadius: const BorderRadius.only(
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30),
+  GestureDetector _buildCardEvent(Size size, item) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, AppRouting.eventMobileApp2);
+      },
+      child: Container(
+        width: size.width,
+        height: size.height / 3.2,
+        margin: const EdgeInsets.only(bottom: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+          image: DecorationImage(
+              image: AssetImage(item['cover']),
+              fit: BoxFit.cover,
+              colorFilter:
+                  const ColorFilter.mode(Colors.black45, BlendMode.srcATop)),
+        ),
+        child: Stack(
+          children: [
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey.shade700.withOpacity(.8),
                 ),
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${item['eventName']}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontFamily: YsabeauInfant,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          '${item['name']} - ${DateFormat.Hm().format(item['date'])}',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(size.width),
-                      color: Colors.white,
-                    ),
-                    padding: const EdgeInsets.all(7),
-                    child: Text(
-                      numberFormat.format(item['price']),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      DateFormat.d().format(item['date']),
                       style: const TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 18,
-                        color: Colors.black,
+                        color: Colors.white,
+                        fontSize: 15,
+                        fontFamily: YsabeauInfant,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
-                ],
+                    Text(
+                      DateFormat.MMM().format(item['date']),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 11,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                padding: const EdgeInsets.all(15),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade700.withOpacity(.8),
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    bottomRight: Radius.circular(30),
+                  ),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${item['eventName']}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontFamily: YsabeauInfant,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            '${item['name']} - ${DateFormat.Hm().format(item['date'])}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(size.width),
+                        color: Colors.white,
+                      ),
+                      padding: const EdgeInsets.all(7),
+                      child: Text(
+                        numberFormat.format(item['price']),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

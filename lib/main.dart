@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRouting.eventMobileApp1,
+      initialRoute: AppRouting.eventMobileApp2,
       onGenerateRoute: (settings) => AppRouting.onGenerateRoute(settings),
       onGenerateTitle: (context) {
         return "context";
