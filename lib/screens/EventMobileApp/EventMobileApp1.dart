@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +34,7 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
       "eventName": "Oliver Tree Concert",
       "name": "Jakarta Indonesia",
       "cover":
-          "assets/images/EventMobileApp/pexels-andrea-piacquadio-787961.jpg"
+      "assets/images/EventMobileApp/pexels-andrea-piacquadio-787961.jpg"
     },
     {
       "date": DateTime.now().add(const Duration(days: 30)),
@@ -49,6 +51,31 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
     {"selected": false, "icon": CupertinoIcons.mail},
     {"selected": false, "icon": CupertinoIcons.person},
   ];
+  List<dynamic> upcomingEvents = [
+    {
+      "id": Random().nextInt(99),
+      "label": "My feed",
+      "icon": Icons.flash_on,
+    },
+    {
+      "id": Random().nextInt(99),
+      "label": "Food",
+      "icon": CupertinoIcons.arrow_up_arrow_down
+    },
+    {
+      "id": Random().nextInt(99),
+      "label": "Concerts",
+      "icon": CupertinoIcons.music_note
+    },
+  ];
+
+  dynamic upcomingEventsSelected;
+
+  @override
+  void initState() {
+    upcomingEventsSelected = upcomingEvents[0];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,26 +87,24 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: Colors.amber,
-        body: Stack(
-          children: [
-            Positioned.fill(
-              child: Container(
-                width: size.width,
-                height: size.height,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [.5, .3, .2],
-                    tileMode: TileMode.mirror,
-                    colors: [
-                      colorChocolat,
-                      Color.fromRGBO(64, 22, 14, .9),
-                      Colors.black,
-                    ],
-                  ),
-                ),
+        backgroundColor: Colors.transparent,
+        body: Container(
+          width: size.width,
+          height: size.height,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                colorChocolat,
+                colorChocolat,
+                Colors.black12,
+              ],
+            ),
+          ),
+          child: Stack(
+            children: [
+              Positioned.fill(
                 child: SafeArea(
                   child: SingleChildScrollView(
                     child: Column(
@@ -201,21 +226,12 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              _buildIconWidget(size,
-                                  icon: Icons.flash_on,
-                                  backgroundColor: redColor,
-                                  colorIcon: redColor,
-                                  label: "My feed"),
-                              _buildIconWidget(size,
-                                  icon: CupertinoIcons.arrow_up_arrow_down,
-                                  backgroundColor: Colors.white12,
-                                  colorIcon: Colors.black,
-                                  label: "Food"),
-                              _buildIconWidget(size,
-                                  icon: CupertinoIcons.music_note,
-                                  backgroundColor: Colors.white12,
-                                  colorIcon: Colors.black,
-                                  label: "Concerts"),
+                              ...upcomingEvents
+                                  .map(
+                                    (item) =>
+                                        _buildIconWidget(size, data: item),
+                                  )
+                                  .toList(),
                             ],
                           ),
                         ),
@@ -239,46 +255,47 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
                   ),
                 ),
               ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                color: Colors.black54,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ...menus.asMap().entries.map((e) {
-                      dynamic item = e.value;
-                      return Flexible(
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          icon: CircleAvatar(
-                            backgroundColor: item['selected']
-                                ? Colors.white
-                                : Colors.transparent,
-                            radius: 25,
-                            child: Icon(
-                              item['icon'],
-                              color: item['selected'] ? redColor : Colors.white,
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  color: Colors.black54,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ...menus.asMap().entries.map((e) {
+                        dynamic item = e.value;
+                        return Flexible(
+                          child: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: CircleAvatar(
+                              backgroundColor: item['selected']
+                                  ? Colors.white
+                                  : Colors.transparent,
+                              radius: 25,
+                              child: Icon(item['icon'],
+                                  color: item['selected']
+                                      ? redColor
+                                      : Colors.white,
+                                  size: 23),
                             ),
+                            onPressed: () {
+                              menus.map((e) => e['selected'] = false).toList();
+                              item['selected'] = !item['selected'];
+                              setState(() {});
+                            },
+                            color: redColor,
                           ),
-                          onPressed: () {
-                            menus.map((e) => e['selected'] = false).toList();
-                            item['selected'] = !item['selected'];
-                            setState(() {});
-                          },
-                          color: redColor,
-                        ),
-                      );
-                    }).toList(),
-                  ],
+                        );
+                      }).toList(),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -295,7 +312,7 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
             image: AssetImage(item['cover']),
             fit: BoxFit.cover,
             colorFilter:
-                const ColorFilter.mode(Colors.black45, BlendMode.srcATop)),
+            const ColorFilter.mode(Colors.black45, BlendMode.srcATop)),
       ),
       child: Stack(
         children: [
@@ -399,48 +416,54 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
     );
   }
 
-  Flexible _buildIconWidget(
-    Size size, {
-    required IconData icon,
-    required Color backgroundColor,
-    required Color colorIcon,
-    required String label,
+  Flexible _buildIconWidget(Size size, {
+    required data,
   }) {
     return Flexible(
-      child: Container(
-        padding: const EdgeInsets.all(5),
-        margin: const EdgeInsets.only(right: 5),
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(size.width),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.white,
-              radius: 16,
-              child: Icon(
-                icon,
-                size: 20,
-                color: colorIcon,
-              ),
-            ),
-            Expanded(
-              child: Text(
-                label,
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
+      child: GestureDetector(
+        onTap: () {
+          upcomingEventsSelected = data;
+          setState(() {});
+        },
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          margin: const EdgeInsets.only(right: 5),
+          decoration: BoxDecoration(
+            color: upcomingEventsSelected['id'] == data['id']
+                ? redColor
+                : Colors.white12,
+            borderRadius: BorderRadius.circular(size.width),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                radius: 16,
+                child: Icon(
+                  data['icon'],
+                  size: 20,
+                  color: upcomingEventsSelected['id'] == data['id']
+                      ? redColor
+                      : Colors.black,
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Text(
+                  data['label'],
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
