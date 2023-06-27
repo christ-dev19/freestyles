@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,10 @@ import 'package:freestyles/core/AppRouting.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/constants.dart';
+import 'package:vector_math/vector_math.dart' as vm;
 
 Color colorChocolat = const Color.fromRGBO(64, 22, 14, 1);
-Color redColor = const Color.fromRGBO(255, 70, 85, 1);
+Color colorRed = const Color.fromRGBO(255, 70, 85, 1);
 
 class EventMobileApp3 extends StatefulWidget {
   const EventMobileApp3({super.key});
@@ -141,9 +143,23 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                   fontSize: 16,
                                 ),
                               ),
-                              const SizedBox(height: 30),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: CustomPaint(
+                                      painter: DashPaint(
+                                        thickness: 2.0,
+                                        color: Colors.black38,
+                                        indent: 7,
+                                      ),
+                                      size: Size(size.width, 30),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   _buildItemTicket(
@@ -159,8 +175,12 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                   ),
                                 ],
                               ),
+                              SizedBox(
+                                height: 7,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   _buildItemTicket(
@@ -174,7 +194,41 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 30),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CustomPaint(
+                                      painter: CirclePaint(
+                                        sizeCircle: 20.0,
+                                        left: true,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: CustomPaint(
+                                        painter: DashPaint(
+                                          thickness: 2.0,
+                                          color: Colors.black38,
+                                          indent: 7,
+                                        ),
+                                        size: Size(size.width, 20),
+                                      ),
+                                    ),
+                                    CustomPaint(
+                                      painter: CirclePaint(
+                                        sizeCircle: 20.0,
+                                        left: false,
+                                        color: Colors.black87,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                               Container(
                                 width: size.width,
                                 height: size.width / 9,
@@ -211,7 +265,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                       ),
                       child: InkWell(
                         onTap: () {
-                          Navigator.pop(context);
+                          Navigator.of(context).pop();
                         },
                         child: const Icon(
                           Icons.arrow_back_ios_new,
@@ -270,7 +324,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                         margin: const EdgeInsets.only(right: 10),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(size.width),
-                          color: redColor,
+                          color: colorRed,
                         ),
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -345,7 +399,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
           style: const TextStyle(
               color: Colors.black38, fontSize: 18, fontWeight: FontWeight.w600),
         ),
-        const SizedBox(height: 7),
+        const SizedBox(height: 4),
         Text(
           value,
           maxLines: 1,
@@ -355,5 +409,81 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
         ),
       ],
     );
+  }
+}
+
+class CirclePaint extends CustomPainter {
+  final Color color;
+  final double sizeCircle;
+  final bool left;
+
+  CirclePaint(
+      {required this.color, required this.sizeCircle, this.left = true});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final h = size.height;
+    final w = size.width;
+    final radius = sizeCircle;
+    Paint paint = Paint()
+      ..color = Color.fromRGBO(71, 44, 40, 1)
+      ..style = PaintingStyle.fill;
+
+    // left w = 0; w-radius; startAngle=90, endAngle=-180
+    // right w=100; w+radius; startAngle= 90, endAngle=180
+    double offsetX = left ? -radius : w + radius;
+    double sweepAngle = left ? -180 : 180;
+
+    Offset center = Offset(offsetX, h / 2);
+    Rect rect = Rect.fromCircle(center: center, radius: radius);
+
+    canvas.drawArc(
+      rect,
+      vm.radians(90),
+      vm.radians(sweepAngle),
+      false,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return true;
+  }
+}
+
+class DashPaint extends CustomPainter {
+  final Color color;
+  final double thickness;
+  final double indent;
+
+  DashPaint({required this.color, required this.thickness, this.indent = 10});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final h = size.height == 0 ? 20 : size.height;
+    final w = size.width;
+    Paint paint = Paint()
+      ..color = color
+      ..strokeWidth = thickness
+      ..style = PaintingStyle.fill;
+    List<Offset> offsets = [];
+    debugPrint("w ==> $w");
+
+    for (var i = indent; i < w; i += indent) {
+      offsets.add(Offset(i.toDouble(), h / 2));
+    }
+    canvas.drawPoints(
+      PointMode.lines,
+      offsets,
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return true;
   }
 }
