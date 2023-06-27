@@ -1,0 +1,2 @@
+const YsabeauInfant = "YsabeauInfant";
+

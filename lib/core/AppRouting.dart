@@ -6,6 +6,7 @@ import 'package:freestyles/screens/LoginPage.dart';
 import '../screens/CorporateWellnessPage.dart';
 import '../screens/CorporateWellnessWithModalPage.dart';
 import '../screens/DragableCustom.dart';
+import '../screens/EventMobileApp/EventMobileApp1.dart';
 import '../screens/FoodOrderingApp/FoodOrderingApp1.dart';
 import '../screens/FoodOrderingApp/FoodOrderingApp2.dart';
 import '../screens/MyHomePage.dart';
@@ -21,6 +22,7 @@ class AppRouting {
   static const corporateWellnessWithModalPage =
       "CorporateWellnessWithModalPage";
   static const draggableCustom = "DragableCustom";
+  static const eventMobileApp1 = "EventMobileApp1";
 
   static onGenerateRoute(RouteSettings settings) {
     developer.log('${settings.name}', name: "settings");
@@ -53,9 +55,13 @@ class AppRouting {
         return MaterialPageRoute(builder: (_) {
           return const FoodOrderingApp1();
         });
-        case foodOrderingApp2:
+      case foodOrderingApp2:
         return MaterialPageRoute(builder: (_) {
           return const FoodOrderingApp2();
+        });
+      case eventMobileApp1:
+        return MaterialPageRoute(builder: (_) {
+          return const EventMobileApp1();
         });
       case corporateWellnessWithModalPage:
         return MaterialPageRoute(builder: (_) {
