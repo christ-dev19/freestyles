@@ -381,18 +381,22 @@ class _EventMobileApp2State extends State<EventMobileApp2> {
                       ),
                     ),
                     Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(14),
-                        margin: const EdgeInsets.only(left: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(size.width),
-                          color: redColor,
-                        ),
-                        child: const Text(
-                          'Get a Ticket',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.w900),
+                      child: GestureDetector(
+                        onTap: ()=>Navigator.pushNamed(
+                            context, AppRouting.eventMobileApp3),
+                        child: Container(
+                          padding: const EdgeInsets.all(14),
+                          margin: const EdgeInsets.only(left: 20),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(size.width),
+                            color: redColor,
+                          ),
+                          child: const Text(
+                            'Get a Ticket',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white, fontWeight: FontWeight.w900),
+                          ),
                         ),
                       ),
                     ),

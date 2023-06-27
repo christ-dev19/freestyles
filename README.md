@@ -26,3 +26,4 @@ samples, guidance on mobile development, and a full API reference.
 >  6. [Food Ordering App Sceen 2](https://gist.github.com/christ-dev19/89fcf7ad536a7ed7b298e11893a2850d)
 >  7. [Task List Screen](https://gist.github.com/christ-dev19/2d6865c02b60419b3f29d6eccaa3a596)
 >  8. [Event Mobile App Screen 1](https://gist.github.com/christ-dev19/c2427bc8f1cca26be349fb98849e65a2)
+>  9. [Event Mobile App Screen 2](https://gist.github.com/christ-dev19/fdcf7b372ed891988424e5445ab100a3)

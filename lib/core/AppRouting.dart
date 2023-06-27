@@ -8,6 +8,7 @@ import '../screens/CorporateWellnessWithModalPage.dart';
 import '../screens/DragableCustom.dart';
 import '../screens/EventMobileApp/EventMobileApp1.dart';
 import '../screens/EventMobileApp/EventMobileApp2.dart';
+import '../screens/EventMobileApp/EventMobileApp3.dart';
 import '../screens/FoodOrderingApp/FoodOrderingApp1.dart';
 import '../screens/FoodOrderingApp/FoodOrderingApp2.dart';
 import '../screens/MyHomePage.dart';
@@ -25,6 +26,7 @@ class AppRouting {
   static const draggableCustom = "DragableCustom";
   static const eventMobileApp1 = "EventMobileApp1";
   static const eventMobileApp2 = "EventMobileApp2";
+  static const eventMobileApp3 = "EventMobileApp3";
 
   static onGenerateRoute(RouteSettings settings) {
     developer.log('${settings.name}', name: "settings");
@@ -72,6 +74,10 @@ class AppRouting {
       case eventMobileApp2:
         return MaterialPageRoute(builder: (_) {
           return const EventMobileApp2();
+        });
+        case eventMobileApp3:
+        return MaterialPageRoute(builder: (_) {
+          return const EventMobileApp3();
         });
     }
   }

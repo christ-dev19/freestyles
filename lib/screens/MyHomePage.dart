@@ -115,6 +115,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       onTap: () => Navigator.pushNamed(
                           context, AppRouting.foodOrderingApp2),
                     ),
+                    _buildItemDrawer(
+                      icon: CupertinoIcons.square_grid_2x2,
+                      label: "Event Mobile App 1",
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.eventMobileApp1),
+                    ),
+                    _buildItemDrawer(
+                      icon: CupertinoIcons.square_grid_2x2,
+                      label: "Event Mobile App 2",
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.eventMobileApp2),
+                    ),
+                    _buildItemDrawer(
+                      icon: CupertinoIcons.square_grid_2x2,
+                      label: "Event Mobile App 3",
+                      onTap: () => Navigator.pushNamed(
+                          context, AppRouting.eventMobileApp3),
+                    ),
                   ],
                 ),
               ),
