@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -82,7 +80,7 @@ class _FoodOrderingApp1State extends State<FoodOrderingApp1> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-         statusBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -392,10 +390,10 @@ class _FoodOrderingApp1State extends State<FoodOrderingApp1> {
 }
 
 class ItemWidget extends StatelessWidget {
-  dynamic data;
-  String title;
+  final dynamic data;
+  final String title;
 
-  ItemWidget({super.key, required this.data, required this.title});
+  const ItemWidget({super.key, required this.data, required this.title});
 
   @override
   Widget build(BuildContext context) {

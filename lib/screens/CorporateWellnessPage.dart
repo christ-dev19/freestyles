@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:freestyles/core/AppRouting.dart';
-import 'package:vector_math/vector_math.dart' as vm;
+import 'package:freestyles/core/shared/CustomPainters.dart';
+import 'package:freestyles/screens/CorporateWellnessModal.dart';
 
 class CorporateWellnessPage extends StatefulWidget {
   const CorporateWellnessPage({Key? key}) : super(key: key);
@@ -87,8 +87,8 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
     Size size = MediaQuery.of(context).size;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-         statusBarIconBrightness: Brightness.dark,
+      value: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: scaffoldColor,
@@ -217,9 +217,14 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
                           children: [
                             ...timeLines
                                 .map(
-                                  (e) => TimeLineWidget(
-                                    bottomSheetColor: bottomSheetColor,
-                                    item: e,
+                                  (e) => GestureDetector(
+                                    onTap: () {
+                                      _showModalWellness();
+                                    },
+                                    child: TimeLineWidget(
+                                      bottomSheetColor: bottomSheetColor,
+                                      item: e,
+                                    ),
                                   ),
                                 )
                                 .toList()
@@ -242,6 +247,16 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
           ),
         ),
       ),
+    );
+  }
+
+  _showModalWellness() {
+    return showCupertinoModalPopup(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const CorporateWellnessModal();
+      },
     );
   }
 }
@@ -360,37 +375,6 @@ class TimeLineWidget extends StatelessWidget {
   }
 }
 
-class MyPainter extends CustomPainter {
-  final Color color;
-  final double degreeProgress;
-
-  MyPainter({required this.color, required this.degreeProgress});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final h = size.height;
-    final w = size.width;
-    final radius = w / 2;
-    Paint paint = Paint()
-      ..color = color
-      ..strokeWidth = 5.0
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    Offset center = Offset(w / 2, h / 2);
-    Rect rect = Rect.fromCircle(center: center, radius: radius);
-
-    canvas.drawArc(
-        rect, vm.radians(-90), vm.radians(degreeProgress), false, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return true;
-  }
-}
-
 class CardWidget extends StatelessWidget {
   final int index;
 
@@ -428,7 +412,7 @@ class CardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             CustomPaint(
-              painter: MyPainter(
+              painter: ProgresPainter(
                   color: item["textColor"],
                   degreeProgress: item['degreeProgress']),
               child: Container(
@@ -497,10 +481,7 @@ class BottomNavigationSheet extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
+            onTap: () {},
             child: const Icon(
               CupertinoIcons.square_grid_2x2,
               color: Colors.white,
@@ -509,10 +490,7 @@ class BottomNavigationSheet extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
+            onTap: () {},
             child: const Icon(
               CupertinoIcons.app,
               color: Colors.white24,
@@ -521,10 +499,7 @@ class BottomNavigationSheet extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
+            onTap: () {},
             child: const Icon(
               CupertinoIcons.calendar,
               color: Colors.white24,
@@ -533,10 +508,7 @@ class BottomNavigationSheet extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
+            onTap: () {},
             child: const Icon(
               CupertinoIcons.chat_bubble,
               color: Colors.white24,
@@ -545,10 +517,7 @@ class BottomNavigationSheet extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                  context, AppRouting.corporateWellnessWithModalPage);
-            },
+            onTap: () {},
             child: const Icon(
               CupertinoIcons.settings,
               color: Colors.white24,

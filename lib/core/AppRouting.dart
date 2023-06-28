@@ -1,10 +1,7 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:freestyles/screens/LoginPage.dart';
 
 import '../screens/CorporateWellnessPage.dart';
-import '../screens/CorporateWellnessWithModalPage.dart';
 import '../screens/DragableCustom.dart';
 import '../screens/EventMobileApp/EventMobileApp1.dart';
 import '../screens/EventMobileApp/EventMobileApp2.dart';
@@ -23,15 +20,13 @@ class AppRouting {
   static const foodOrderingApp2 = "FoodOrderingApp2";
   static const foodOrderingApp3 = "FoodOrderingApp3";
   static const corporateWellness = "corporateWellness";
-  static const corporateWellnessWithModalPage =
-      "CorporateWellnessWithModalPage";
   static const draggableCustom = "DragableCustom";
   static const eventMobileApp1 = "EventMobileApp1";
   static const eventMobileApp2 = "EventMobileApp2";
   static const eventMobileApp3 = "EventMobileApp3";
 
   static onGenerateRoute(RouteSettings settings) {
-    developer.log('${settings.name}', name: "settings");
+    debugPrint('settings ${settings.name}');
 
     switch (settings.name) {
       case home:
@@ -46,21 +41,16 @@ class AppRouting {
 
       case login:
         return MaterialPageRoute(builder: (_) {
-          return LoginPage();
+          return const LoginPage();
         });
       case register:
         return MaterialPageRoute(builder: (_) {
-          return RegisterPage();
+          return const RegisterPage();
         });
       case corporateWellness:
         return MaterialPageRoute(builder: (_) {
           return const CorporateWellnessPage();
         });
-      case corporateWellnessWithModalPage:
-        return MaterialPageRoute(builder: (_) {
-          return const CorporateWellnessWithModalPage();
-        });
-
       case foodOrderingApp1:
         return MaterialPageRoute(builder: (_) {
           return const FoodOrderingApp1();
@@ -77,11 +67,11 @@ class AppRouting {
         return MaterialPageRoute(builder: (_) {
           return const EventMobileApp2();
         });
-        case eventMobileApp3:
+      case eventMobileApp3:
         return MaterialPageRoute(builder: (_) {
           return const EventMobileApp3();
         });
-        case foodOrderingApp3:
+      case foodOrderingApp3:
         return MaterialPageRoute(builder: (_) {
           return const FoodOrderingApp3();
         });

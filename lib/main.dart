@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         debugShowCheckedModeBanner: true,
-        initialRoute: AppRouting.login,
+        initialRoute: AppRouting.corporateWellness,
         onGenerateRoute: (settings) => AppRouting.onGenerateRoute(settings),
         onGenerateTitle: (context) {
           return "context";

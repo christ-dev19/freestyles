@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vm;
-import 'package:flutter/cupertino.dart';
 
 class CirclePainter extends CustomPainter {
   final Color color;
@@ -44,7 +43,7 @@ class CirclePainter extends CustomPainter {
     return true;
   }
 }
-
+/**/
 class DividerPainter extends CustomPainter {
   final Color color;
   final double thickness;
@@ -83,9 +82,7 @@ class DividerPainter extends CustomPainter {
     return true;
   }
 }
-
-
-
+/**/
 class InnerShadowDecoration extends Decoration {
   final ShapeBorder shape;
   final double depth;
@@ -105,8 +102,7 @@ class InnerShadowDecoration extends Decoration {
   @override
   BoxPainter createBoxPainter([VoidCallback? onChanged]) {
     // TODO: implement createBoxPainter
-    return _ConcaveDecorationPainter(
-        shape, depth, colors, opacity);
+    return _ConcaveDecorationPainter(shape, depth, colors, opacity);
   }
 }
 
@@ -118,7 +114,7 @@ class _ConcaveDecorationPainter extends BoxPainter {
 
   _ConcaveDecorationPainter(this.shape, this.depth, this.colors, this.opacity) {
     if (depth > 0) {
-      colors=colors.reversed.toList();
+      colors = colors.reversed.toList();
     } else {
       depth = -depth;
     }
@@ -147,9 +143,8 @@ class _ConcaveDecorationPainter extends BoxPainter {
         : Size(rect.width / 2, rect.height);
     for (final alignment in [Alignment.topLeft, Alignment.bottomRight]) {
       final shaderRect =
-      alignment.inscribe(Size.square(rect.longestSide), rect);
-      paint
-          .shader = ui.Gradient.linear(
+          alignment.inscribe(Size.square(rect.longestSide), rect);
+      paint.shader = ui.Gradient.linear(
           shaderRect.topLeft, shaderRect.bottomRight, colors, stops);
 
       canvas.save();
@@ -158,5 +153,36 @@ class _ConcaveDecorationPainter extends BoxPainter {
       canvas.restore();
     }
     canvas.restore();
+  }
+}
+/**/
+class ProgresPainter extends CustomPainter {
+  final Color color;
+  final double degreeProgress;
+
+  ProgresPainter({required this.color, required this.degreeProgress});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final h = size.height;
+    final w = size.width;
+    final radius = w / 2;
+    Paint paint = Paint()
+      ..color = color
+      ..strokeWidth = 5.0
+      ..strokeCap = StrokeCap.round
+      ..style = PaintingStyle.stroke;
+
+    Offset center = Offset(w / 2, h / 2);
+    Rect rect = Rect.fromCircle(center: center, radius: radius);
+
+    canvas.drawArc(
+        rect, vm.radians(-90), vm.radians(degreeProgress), false, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return true;
   }
 }
