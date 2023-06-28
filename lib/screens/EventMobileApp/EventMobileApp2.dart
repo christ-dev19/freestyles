@@ -31,7 +31,6 @@ class _EventMobileApp2State extends State<EventMobileApp2> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(

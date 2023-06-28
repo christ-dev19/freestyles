@@ -90,8 +90,7 @@ class _CorporateWellnessWithModalPageState
     const overlayColorModal = Color.fromRGBO(157, 156, 163, .3);
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: overlayColorModal,
-        statusBarIconBrightness: Brightness.dark,
+         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: scaffoldColor,

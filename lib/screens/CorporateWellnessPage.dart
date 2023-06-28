@@ -88,8 +88,7 @@ class _CorporateWellnessPageState extends State<CorporateWellnessPage> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle(
-        statusBarColor: scaffoldColor,
-        statusBarIconBrightness: Brightness.dark,
+         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: scaffoldColor,

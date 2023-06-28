@@ -11,6 +11,7 @@ import '../screens/EventMobileApp/EventMobileApp2.dart';
 import '../screens/EventMobileApp/EventMobileApp3.dart';
 import '../screens/FoodOrderingApp/FoodOrderingApp1.dart';
 import '../screens/FoodOrderingApp/FoodOrderingApp2.dart';
+import '../screens/FoodOrderingApp/FoodOrderingApp3.dart';
 import '../screens/MyHomePage.dart';
 import '../screens/RegisterPage.dart';
 
@@ -20,6 +21,7 @@ class AppRouting {
   static const register = "register";
   static const foodOrderingApp1 = "FoodOrderingApp1";
   static const foodOrderingApp2 = "FoodOrderingApp2";
+  static const foodOrderingApp3 = "FoodOrderingApp3";
   static const corporateWellness = "corporateWellness";
   static const corporateWellnessWithModalPage =
       "CorporateWellnessWithModalPage";
@@ -78,6 +80,10 @@ class AppRouting {
         case eventMobileApp3:
         return MaterialPageRoute(builder: (_) {
           return const EventMobileApp3();
+        });
+        case foodOrderingApp3:
+        return MaterialPageRoute(builder: (_) {
+          return const FoodOrderingApp3();
         });
     }
   }

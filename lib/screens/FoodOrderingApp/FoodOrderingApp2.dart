@@ -91,8 +91,7 @@ class _FoodOrderingApp2State extends State<FoodOrderingApp2> {
     Size size = MediaQuery.of(context).size;
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
+         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -137,7 +136,7 @@ class _FoodOrderingApp2State extends State<FoodOrderingApp2> {
                             shape: BoxShape.circle,
                             border: Border.all(
                               color: Colors.black12,
-                              width: 2,
+                              width: 3,
                             ),
                           ),
                           child: const Icon(
@@ -316,7 +315,9 @@ class _FoodOrderingApp2State extends State<FoodOrderingApp2> {
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, AppRouting.foodOrderingApp3);
+          },
           isExtended: true,
           backgroundColor: Colors.black,
           shape: RoundedRectangleBorder(

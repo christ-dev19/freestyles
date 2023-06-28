@@ -54,17 +54,17 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
   ];
   List<dynamic> upcomingEvents = [
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       "label": "My feed",
       "icon": Icons.flash_on,
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       "label": "Food",
       "icon": CupertinoIcons.arrow_up_arrow_down
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       "label": "Concerts",
       "icon": CupertinoIcons.music_note
     },
@@ -83,8 +83,7 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
     Size size = MediaQuery.of(context).size;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: colorChocolat,
+      value: const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
@@ -172,8 +171,10 @@ class _EventMobileApp1State extends State<EventMobileApp1> {
                             color: Colors.white12,
                             borderRadius: BorderRadius.circular(size.width),
                           ),
-                          child: const TextField(
-                            decoration: InputDecoration(
+                          child:   TextField(
+                            cursorColor: colorChocolat,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
                               fillColor: Colors.black12,
                               prefixIcon: Icon(

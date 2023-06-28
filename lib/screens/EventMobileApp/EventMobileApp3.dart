@@ -1,14 +1,12 @@
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:freestyles/core/AppRouting.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/constants.dart';
-import 'package:vector_math/vector_math.dart' as vm;
+import '../../core/shared/CustomPainters.dart';
 
 Color colorChocolat = const Color.fromRGBO(64, 22, 14, 1);
 Color colorRed = const Color.fromRGBO(255, 70, 85, 1);
@@ -30,8 +28,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
     Size size = MediaQuery.of(context).size;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-        statusBarColor: colorChocolat,
+      value: const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
@@ -69,7 +66,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                 height: size.height,
                 padding: const EdgeInsets.all(10),
                 decoration: const BoxDecoration(
-                  color: Colors.white12,
+                  color: Color.fromRGBO(71, 44, 40, 1),
                   borderRadius: BorderRadius.all(
                     Radius.circular(40),
                   ),
@@ -147,7 +144,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                 children: [
                                   Expanded(
                                     child: CustomPaint(
-                                      painter: DashPaint(
+                                      painter: DividerPainter(
                                         thickness: 2.0,
                                         color: Colors.black38,
                                         indent: 7,
@@ -175,7 +172,7 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 7,
                               ),
                               Row(
@@ -203,15 +200,16 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     CustomPaint(
-                                      painter: CirclePaint(
+                                      painter: CirclePainter(
                                         sizeCircle: 20.0,
                                         left: true,
-                                        color: Colors.black87,
+                                        color:
+                                            const Color.fromRGBO(71, 44, 40, 1),
                                       ),
                                     ),
                                     Expanded(
                                       child: CustomPaint(
-                                        painter: DashPaint(
+                                        painter: DividerPainter(
                                           thickness: 2.0,
                                           color: Colors.black38,
                                           indent: 7,
@@ -220,10 +218,11 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
                                       ),
                                     ),
                                     CustomPaint(
-                                      painter: CirclePaint(
+                                      painter: CirclePainter(
                                         sizeCircle: 20.0,
                                         left: false,
-                                        color: Colors.black87,
+                                        color:
+                                            const Color.fromRGBO(71, 44, 40, 1),
                                       ),
                                     ),
                                   ],
@@ -412,78 +411,4 @@ class _EventMobileApp3State extends State<EventMobileApp3> {
   }
 }
 
-class CirclePaint extends CustomPainter {
-  final Color color;
-  final double sizeCircle;
-  final bool left;
 
-  CirclePaint(
-      {required this.color, required this.sizeCircle, this.left = true});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final h = size.height;
-    final w = size.width;
-    final radius = sizeCircle;
-    Paint paint = Paint()
-      ..color = Color.fromRGBO(71, 44, 40, 1)
-      ..style = PaintingStyle.fill;
-
-    // left w = 0; w-radius; startAngle=90, endAngle=-180
-    // right w=100; w+radius; startAngle= 90, endAngle=180
-    double offsetX = left ? -radius : w + radius;
-    double sweepAngle = left ? -180 : 180;
-
-    Offset center = Offset(offsetX, h / 2);
-    Rect rect = Rect.fromCircle(center: center, radius: radius);
-
-    canvas.drawArc(
-      rect,
-      vm.radians(90),
-      vm.radians(sweepAngle),
-      false,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return true;
-  }
-}
-
-class DashPaint extends CustomPainter {
-  final Color color;
-  final double thickness;
-  final double indent;
-
-  DashPaint({required this.color, required this.thickness, this.indent = 10});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final h = size.height == 0 ? 20 : size.height;
-    final w = size.width;
-    Paint paint = Paint()
-      ..color = color
-      ..strokeWidth = thickness
-      ..style = PaintingStyle.fill;
-    List<Offset> offsets = [];
-    debugPrint("w ==> $w");
-
-    for (var i = indent; i < w; i += indent) {
-      offsets.add(Offset(i.toDouble(), h / 2));
-    }
-    canvas.drawPoints(
-      PointMode.lines,
-      offsets,
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return true;
-  }
-}

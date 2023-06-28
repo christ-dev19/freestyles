@@ -21,44 +21,39 @@ class FoodOrderingApp1 extends StatefulWidget {
 class _FoodOrderingApp1State extends State<FoodOrderingApp1> {
   List<dynamic> foods = [
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "All",
       "image": "assets/images/FoodOrderingApp/chicken.png"
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "Sea food",
       "image": "assets/images/FoodOrderingApp/chicken.png"
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "Sea food",
       "image": "assets/images/FoodOrderingApp/hamburger1.png"
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "Drink",
       "image": "assets/images/FoodOrderingApp/watermelon.png"
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "Sea food",
       "image": "assets/images/FoodOrderingApp/pizza.png"
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "Drink",
       "image": "assets/images/FoodOrderingApp/watermelon.png"
     },
     {
-      "id": Random().nextInt(99),
+      "id": DateTime.now().microsecond,
       'name': "Sea food",
-      "image": "assets/images/FoodOrderingApp/chicken.png"
-    },
-    {
-      "id": Random().nextInt(99),
-      'name': "Sea food",
-      "image": "assets/images/FoodOrderingApp/pizza.png"
+      "image": "assets/images/FoodOrderingApp/watermelon.png"
     },
   ];
   List<dynamic> itemPopulars = List.generate(
@@ -87,8 +82,7 @@ class _FoodOrderingApp1State extends State<FoodOrderingApp1> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
+         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
         backgroundColor: Colors.white,

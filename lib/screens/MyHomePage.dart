@@ -14,6 +14,44 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final GlobalKey<ScaffoldState> _drawerKey = GlobalKey<ScaffoldState>();
 
+  List<dynamic> screens = [
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Dragable Custom",
+      "route": AppRouting.draggableCustom,
+    },
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Connexion",
+      "route": AppRouting.login,
+    },
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Création de compte",
+      "route": AppRouting.register,
+    },
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Accueil",
+      "route": AppRouting.home,
+    },
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Corporate Wellness",
+      "route": AppRouting.corporateWellness,
+    },
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Food Ordering App",
+      "route": AppRouting.foodOrderingApp1,
+    },
+    {
+      "icon": CupertinoIcons.square_grid_2x2,
+      "label": "Event Mobile App",
+      "route": AppRouting.eventMobileApp1,
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -73,66 +111,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: const EdgeInsets.only(left: 30),
                 child: Column(
                   children: [
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Connexion",
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRouting.login),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Création de compte",
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRouting.register),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Accueil",
-                      onTap: () =>
-                          Navigator.pushNamed(context, AppRouting.home),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Corporate Wellness",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.corporateWellness),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Dragable Custom",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.draggableCustom),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Food Ordering App1",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.foodOrderingApp1),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Food Ordering App2",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.foodOrderingApp2),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Event Mobile App 1",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.eventMobileApp1),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Event Mobile App 2",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.eventMobileApp2),
-                    ),
-                    _buildItemDrawer(
-                      icon: CupertinoIcons.square_grid_2x2,
-                      label: "Event Mobile App 3",
-                      onTap: () => Navigator.pushNamed(
-                          context, AppRouting.eventMobileApp3),
-                    ),
+                    ...screens
+                        .map(
+                          (e) => _buildItemDrawer(
+                            icon: e['icon'],
+                            label: e['label'],
+                            onTap: () =>
+                                Navigator.pushNamed(context, e['route']),
+                          ),
+                        )
+                        .toList()
                   ],
                 ),
               ),
@@ -140,14 +128,27 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+      body: Center(
+        child: ReorderableListView(
+          onReorder: (int oldIndex, int newIndex) {
+            if (newIndex > oldIndex) newIndex--;
+            screens.insert(newIndex, screens.removeAt(oldIndex));
+
+            setState(() {});
+          },
+          children: screens
+              .map(
+                (e) => Padding(
+                  key: ValueKey(e),
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildItemDrawer(
+                    icon: e['icon'],
+                    label: e['label'],
+                    onTap: () => Navigator.pushNamed(context, e['route']),
+                  ),
+                ),
+              )
+              .toList(),
         ),
       ),
     );
@@ -156,8 +157,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildItemDrawer(
       {required IconData icon,
       required String label,
-      required VoidCallback onTap}) {
+      required VoidCallback onTap,
+      ValueKey? key}) {
     return InkWell(
+      key: key,
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 10),

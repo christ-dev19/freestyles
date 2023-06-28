@@ -1,8 +1,8 @@
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:freestyles/core/AppRouting.dart';
+
+import '../core/shared/CustomPainters.dart';
 
 //// Login page
 class LoginPage extends StatefulWidget {
@@ -27,7 +27,9 @@ class LoginPageState extends State<LoginPage> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value:
-          const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
+          const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark),
       child: Scaffold(
         body: SingleChildScrollView(
           child: Container(
@@ -46,10 +48,10 @@ class LoginPageState extends State<LoginPage> {
                       horizontal: 1.6 * fullWidth / 8,
                       vertical: .1 * (fullHeight / 12.5),
                     ),
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Colors.white60,
                       boxShadow: [
-                        BoxShadow(
+                        const BoxShadow(
                           color: Colors.black12,
                           blurRadius: 10,
                           spreadRadius: 7,
@@ -57,8 +59,8 @@ class LoginPageState extends State<LoginPage> {
                         ),
                       ],
                       borderRadius: BorderRadius.vertical(
-                        bottom: Radius.circular(1000),
-                        top: Radius.circular(1000),
+                        bottom: Radius.circular(fullWidth),
+                        top: Radius.circular(fullWidth),
                       ),
                     ),
                     child: Container(
@@ -261,86 +263,5 @@ class LoginPageState extends State<LoginPage> {
         obscureText: obscureTextPassword,
       ),
     );
-  }
-}
-
-class InnerShadowDecoration extends Decoration {
-  final ShapeBorder shape;
-  final double depth;
-  final List<Color> colors;
-  final double opacity;
-
-  const InnerShadowDecoration({
-    required this.shape,
-    required this.depth,
-    this.colors = const [Colors.black87, Colors.white],
-    this.opacity = 1.0,
-  }) : assert(colors.length == 2);
-
-  @override
-  EdgeInsetsGeometry get padding => shape.dimensions;
-
-  @override
-  BoxPainter createBoxPainter([ui.VoidCallback? onChanged]) {
-    // TODO: implement createBoxPainter
-    return _ConcaveDecorationPainter(
-        shape, depth, colors, opacity);
-  }
-}
-
-class _ConcaveDecorationPainter extends BoxPainter {
-  ShapeBorder shape;
-  double depth;
-  List<Color> colors;
-  double opacity;
-
-  _ConcaveDecorationPainter(this.shape, this.depth, this.colors, this.opacity) {
-    if (depth > 0) {
-      colors = [
-        colors[1],
-        colors[0],
-      ];
-    } else {
-      depth = -depth;
-    }
-    colors = [
-      colors[0].withOpacity(opacity),
-      colors[1].withOpacity(opacity),
-    ];
-  }
-
-  @override
-  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
-    final shapePath = shape.getOuterPath(offset & configuration.size!);
-    final rect = shapePath.getBounds();
-
-    final delta = 16 / rect.longestSide;
-    final stops = [0.5 - delta, 0.5 + delta];
-
-    final path = Path()
-      ..fillType = PathFillType.evenOdd
-      ..addRect(rect.inflate(depth * 2))
-      ..addPath(shapePath, Offset.zero);
-    canvas.save();
-    canvas.clipPath(shapePath);
-
-    final paint = Paint()
-      ..maskFilter = MaskFilter.blur(BlurStyle.normal, depth);
-    final clipSize = rect.size.aspectRatio > 1
-        ? Size(rect.width, rect.height / 2)
-        : Size(rect.width / 2, rect.height);
-    for (final alignment in [Alignment.topLeft, Alignment.bottomRight]) {
-      final shaderRect =
-          alignment.inscribe(Size.square(rect.longestSide), rect);
-      paint
-        .shader = ui.Gradient.linear(
-            shaderRect.topLeft, shaderRect.bottomRight, colors, stops);
-
-      canvas.save();
-      canvas.clipRect(alignment.inscribe(clipSize, rect));
-      canvas.drawPath(path, paint);
-      canvas.restore();
-    }
-    canvas.restore();
   }
 }
